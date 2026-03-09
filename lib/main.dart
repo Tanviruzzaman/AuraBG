@@ -207,6 +207,8 @@ class _BackgroundEditorState extends State<BackgroundEditor> {
         ],
       ),
       body: Container(
+        width: double.infinity,
+        height: double.infinity,
         decoration: BoxDecoration(
           gradient: LinearGradient(
             begin: Alignment.topCenter,
@@ -217,9 +219,10 @@ class _BackgroundEditorState extends State<BackgroundEditor> {
         child: Column(
           children: [
             Expanded(
-              child: Center(
+              child: Padding(
+                padding: const EdgeInsets.all(24.0),
                 child: Container(
-                  margin: const EdgeInsets.all(24),
+                  width: double.infinity,
                   decoration: BoxDecoration(
                     color: _backgroundColor == Colors.transparent ? Colors.white : _backgroundColor,
                     borderRadius: BorderRadius.circular(24),
@@ -241,18 +244,25 @@ class _BackgroundEditorState extends State<BackgroundEditor> {
                         else if (_selectedImage != null)
                           Image.file(_selectedImage!, fit: BoxFit.contain)
                         else
-                          const Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Icon(Icons.image_outlined, size: 64, color: Colors.grey),
-                              SizedBox(height: 16),
-                              Text("Select an image to start", style: TextStyle(color: Colors.grey)),
-                            ],
+                          const Center(
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Icon(Icons.image_outlined, size: 80, color: Colors.grey),
+                                SizedBox(height: 16),
+                                Text(
+                                  "Select an image to start",
+                                  style: TextStyle(color: Colors.grey, fontSize: 16, fontWeight: FontWeight.w500),
+                                ),
+                              ],
+                            ),
                           ),
                         if (_isLoading)
                           Container(
-                            color: Colors.black26,
-                            child: const Center(child: CircularProgressIndicator()),
+                            color: Colors.black.withValues(alpha: 0.3),
+                            child: const Center(
+                              child: CircularProgressIndicator(),
+                            ),
                           ),
                       ],
                     ),
@@ -268,7 +278,10 @@ class _BackgroundEditorState extends State<BackgroundEditor> {
                   if (_isLoading && _processedImage != null)
                     const Padding(
                       padding: EdgeInsets.only(bottom: 16),
-                      child: Text("Processing High Quality...", style: TextStyle(fontWeight: FontWeight.bold)),
+                      child: Text(
+                        "Processing High Quality...",
+                        style: TextStyle(fontWeight: FontWeight.bold, color: Colors.deepPurple),
+                      ),
                     ),
                   Row(
                     children: [
